@@ -506,5 +506,3 @@ class BandcampAlbum<T> extends Album<T> {
     );
   }
 }
-
-export default BandcampPlugin;
