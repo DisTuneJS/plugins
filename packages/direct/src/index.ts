@@ -6,7 +6,7 @@ import which from 'which';
 interface Metadata {
   title?: string;
   artist?: string;
-  thumbnail?: string;
+  duration?: number;
 }
 
 export class DirectPlugin extends PlayableExtractorPlugin {
@@ -40,11 +40,21 @@ export class DirectPlugin extends PlayableExtractorPlugin {
 
       const data = JSON.parse(output);
       const format = data.format || {};
+      const streams = data.streams || [];
       const metadata = {} as Metadata;
 
       // Extract title
       if (format.tags?.title) {
         metadata.title = format.tags.title;
+      } else if (format.tags?.TITLE) {
+        metadata.title = format.tags.TITLE;
+      }
+
+      // Extract duration
+      if (format.duration) {
+        metadata.duration = parseFloat(format.duration);
+      } else if (streams[0]?.duration) {
+        metadata.duration = parseFloat(streams[0].duration);
       }
 
       // Extract artist
@@ -52,16 +62,6 @@ export class DirectPlugin extends PlayableExtractorPlugin {
         metadata.artist = format.tags.artist;
       } else if (format.tags?.ARTIST) {
         metadata.artist = format.tags.ARTIST;
-      }
-
-      // Extract thumbnail if present
-      if (format.tags?.METADATA_BLOCK_PICTURE) {
-        try {
-          const thumbnailBase64 = format.tags.METADATA_BLOCK_PICTURE;
-          metadata.thumbnail = `data:image/;base64,${thumbnailBase64}`;
-        } catch {
-          // Ignore thumbnail parsing errors
-        }
       }
 
       return metadata;
@@ -95,13 +95,13 @@ export class DirectPlugin extends PlayableExtractorPlugin {
         source: 'direct_link',
         playFromSource: true,
         plugin: this,
+        duration: metadata.duration,
         uploader: metadata.artist
           ? {
               name: metadata.artist,
               url: undefined
             }
-          : undefined,
-        thumbnail: metadata.thumbnail
+          : undefined
       },
       options
     );
