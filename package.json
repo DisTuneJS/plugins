@@ -1,0 +1,27 @@
+{
+  "name": "@distune/plugins",
+  "description": "Official extractor plugins for DisTune",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "format": "turbo format",
+    "lint": "turbo lint",
+    "type": "turbo type",
+    "test": "turbo test",
+    "update": "pnpm update --recursive --latest \"!eslint\" \"!dargs\""
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/node": "^22.8.1",
+    "eslint": "9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.7.4",
+    "tsup": "^8.3.5",
+    "turbo": "^2.6.3",
+    "typescript-eslint": "^8.48.1"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "pnpm@10.21.0"
+}

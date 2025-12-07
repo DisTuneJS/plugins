@@ -1,0 +1,43 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env.*local"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"],
+      "outputLogs": "errors-only"
+    },
+    "format": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "../../.eslintrc.json",
+        "../../.prettierrc.json",
+        "../../tsconfig.eslint.json",
+        ".prettierrc.json",
+        "src/**",
+        "package.json",
+        "tsconfig.eslint.json"
+      ],
+      "outputs": [],
+      "outputLogs": "errors-only"
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "inputs": ["__mocks__/**", "__tests__/**", "tests/**", "src/**", "package.json", "tsconfig.json", "vitest.config.ts"],
+      "outputs": ["coverage/**"],
+      "outputLogs": "new-only"
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "type": {
+      "dependsOn": ["^type"]
+    },
+    "release": {
+      "dependsOn": ["^build"],
+      "inputs": ["package.json"],
+      "outputs": [],
+      "outputLogs": "full"
+    }
+  }
+}

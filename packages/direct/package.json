@@ -1,0 +1,84 @@
+{
+  "name": "@distune/plugin-direct",
+  "version": "1.0.0",
+  "author": "Simon Bråten (https://github.com/hexahigh)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DisTuneJS/plugins.git"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      }
+    }
+  },
+  "devDependencies": {
+    "@distune/core": "^6.1.0",
+    "@types/node": "^22.8.1",
+    "@types/which": "^3.0.4",
+    "discord.js": "^14.16.3",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "is-ci": "^3.0.1",
+    "prettier": "^3.7.4",
+    "tslib": "^2.8.0",
+    "tsup": "^8.3.5",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.48.1",
+    "vitest": "^4.0.15"
+  },
+  "bugs": {
+    "url": "https://github.com/DisTuneJS/plugins/issues"
+  },
+  "description": "A DisTune playable extractor plugin for direct links.",
+  "directories": {
+    "lib": "src"
+  },
+  "files": [
+    "dist",
+    "script"
+  ],
+  "homepage": "https://github.com/DisTuneJS/plugins/tree/main/packages/direct#readme",
+  "keywords": [
+    "distune",
+    "plugin",
+    "discord",
+    "music"
+  ],
+  "license": "MIT",
+  "nano-staged": {
+    "*.ts": [
+      "prettier --write",
+      "eslint"
+    ],
+    "*.{json,yml,yaml}": [
+      "prettier --write"
+    ]
+  },
+  "peerDependencies": {
+    "@distune/core": "6"
+  },
+  "scripts": {
+    "format": "prettier --write \"**/*.{js,ts,json,yml,yaml,md}\"",
+    "lint": "eslint .",
+    "build": "tsup",
+    "type": "tsc --noEmit",
+    "test": "vitest run",
+    "prepack": "pnpm run build"
+  },
+  "typings": "./dist/index.d.ts",
+  "dependencies": {
+    "dargs": "^7.0.0",
+    "undici": "^7.16.0",
+    "which": "^6.0.0"
+  }
+}

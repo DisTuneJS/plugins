@@ -1,0 +1,9 @@
+node_modules/
+
+# Turbo
+.turbo/
+
+# Build Outputs
+out/
+build
+dist
